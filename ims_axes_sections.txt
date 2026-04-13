@@ -1,0 +1,60 @@
+IMS AXES PROJECT REPORT EXTRACT
+
+====================================================
+1. PROJECT STRUCTURE AND MANAGEMENT
+====================================================
+
+1.1 Project Planning
+The project was planned with distinct milestones adhering to an Agile methodology. Initial scoping involved gathering requirements from QA leads. The back-end restructuring phase decoupled the orchestration engine from the data access layer. Subsequent phases implemented the Websocket servers, followed by dynamic state mapping in the React frontend.
+
+1.2 Function Points and Complexity
+The system was evaluated using Function Points (FP) focusing on external inputs (UI commands), outputs (live logs), logical internal files (DB tables), and interfaces. The complexity was assessed to be moderately high given the integration of Node.js remote child processes interacting tightly with cross-origin websockets.
+
+1.3 Project Scheduling and Representation
+Tasks were divided into two-week sprints. The first sprint tackled the DB schema (Sequelize models) and fundamental REST routes. The second sprint built the Node.js executor logic and Maven triggers. The final sprints finalized the React components, Redux stores, and real-time dashboard updates.
+
+
+====================================================
+2. PROJECT AND SYSTEM REQUIREMENT STUDY
+====================================================
+
+2.1 User Characteristics
+The application primarily serves QA Engineers, Developers, and System Administrators. Users are expected to have fundamental knowledge of testing terminologies like Regression, Sanity, Test Suites, and pass/fail diagnostics.
+
+2.2 Hardware And Software Requirements
+Hardware Specifications:
+- Server Node: Intel Xeon E5 or equivalent, 16GB RAM, 100GB SSD Storage.
+- Client Node: Intel Core i5, 8GB RAM, Modern internet connection.
+
+Software Specifications:
+- Backend: Node.js v14+, NPM/Yarn.
+- Database: MySQL 8.0 instance running locally or on a dedicated DB cluster.
+- Frontend: Web Browser (Chrome/Firefox/Edge).
+- Target OS: Windows Server for remote execution nodes, leveraging PowerShell.
+
+2.3 Assumptions and Dependencies
+It is assumed that the remote IMS target servers (e.g., `imsautomate02`) are continuously active, accessible within the corporate intranet, and pre-configured with testing environments. Correct execution credentials must be preemptively registered in the database. Network firewalls must allow inbound/outbound traffic on the configured application and Socket.IO ports.
+
+
+====================================================
+3. SYSTEM/RESOURCE ANALYSIS
+====================================================
+
+3.1 Study of Current System Resources
+The earlier manual methodology involved initiating remote desktop (RDP/VNC) sessions into target machines, manually updating Git repositories, altering XML scripts manually, and executing raw prompt commands. This approach led to heavy resource blocking, limited transparency, and severe bottlenecks.
+
+3.2 Current System Problem and Weakness
+Manual testing setups are highly prone to human error. Concurrent execution requests on a single machine cause conflicts and test failures. The lack of a centralized tracking mechanism means execution logs and reports are scattered across individual virtual machines, preventing efficient historical analysis.
+
+3.3 Requirements of New System
+The new system (IMSAxes) must automatically pull the latest test scripts from central repositories, gracefully inject necessary credentials securely, orchestrate Maven jobs, and intercept console outputs to transmit real-time results back to a central SQL database silently and automatically.
+
+3.4 Feasibility Study
+The project is technically feasible through the use of Node.js asynchronous child processes and robust PowerShell execution bridges. It is economically viable as the centralized tracking saves potentially thousands of QA man-hours annually by mitigating tedious configuration steps.
+
+3.5 New System Features
+- JWT-based User Authentication and secure sessions.
+- Dynamic TestNG XML generation directly mapped from Front-End inputs.
+- Real-time logging payloads piped natively over Socket.IO.
+- VNC integration proxy for immediate visual remote access directly via the web portal.
+- Dedicated dashboard grids analyzing Pass/Fail historical trends.
